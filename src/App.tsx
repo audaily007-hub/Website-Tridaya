@@ -27,7 +27,7 @@ import { translations, Language } from './translations';
 
 function LogoComponent({ scrolled, lightMode, showSlogan }: { scrolled?: boolean, lightMode?: boolean, showSlogan?: boolean }) {
   const isLight = lightMode || (scrolled === false);
-  const logoSrc = "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=500";
+  const logoSrc = "/img-content/logo-only.jpeg";
   
   if (showSlogan) {
     return (
