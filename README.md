@@ -1,20 +1,69 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Website Tridaya
 
-# Run and deploy your AI Studio app
+Modern company profile and business website project developed to support digital presence, service information delivery, and scalable web operations.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/31e54814-dd99-4a2e-b603-59426c97a990
+## Overview
 
-## Run Locally
+Website Tridaya is a responsive web platform designed to improve business visibility, company branding, and customer engagement through a clean and structured digital experience.
 
-**Prerequisites:**  Node.js
+The project focuses on:
+- Professional company presentation
+- Responsive UI/UX
+- Scalable frontend architecture
+- Fast-loading web experience
+- Maintainable development structure
 
+---
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Features
+
+- Responsive company profile website
+- Mobile-friendly layout
+- Modern UI components
+- Structured content sections
+- Contact and business information pages
+- Optimized frontend rendering
+- Clean navigation flow
+- Scalable project structure
+
+---
+
+## Tech Stack
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Development & Tools
+- GitHub
+- VS Code
+
+---
+
+## Project Goals
+
+- Build a professional digital presence
+- Improve accessibility across devices
+- Deliver clean and maintainable frontend structure
+- Support future scalability and feature enhancement
+
+---
+
+## Folder Structure
+
+```bash
+Website-Tridaya/
+│
+├── assets/
+├── css/
+├── js/
+├── images/
+├── index.html
+└── README.md
+
+Author
+Angga Riyanto
+Full Stack Product Engineer | AI-Assisted Developer
