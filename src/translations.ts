@@ -202,7 +202,7 @@ export const translations = {
     exportTerms: {
       title: 'Export Logistics & Terms',
       logistics: 'Logistics: DHL for global sample distribution.',
-      incoterms: 'Incoterms: EXW, FOB, CIF (Port to Port).',
+      incoterms: 'Incoterms: FOB, CIF (Port to Port).',
       payment: 'Payment: Irrevocable LC at Sight.',
     },
     footer: {
@@ -412,7 +412,7 @@ export const translations = {
     exportTerms: {
       title: 'Logistik & Syarat Ekspor',
       logistics: 'Logistik: DHL untuk distribusi sampel global.',
-      incoterms: 'Incoterms: EXW, FOB, CIF (Pelabuhan ke Pelabuhan).',
+      incoterms: 'Incoterms: FOB, CIF (Pelabuhan ke Pelabuhan).',
       payment: 'Pembayaran: LC Irrevocable at Sight.',
     },
     footer: {
