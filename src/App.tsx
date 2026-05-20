@@ -30,7 +30,7 @@ import { translations, Language } from './translations';
 
 function LogoComponent({ scrolled, lightMode, showSlogan }: { scrolled?: boolean, lightMode?: boolean, showSlogan?: boolean }) {
   const isLight = lightMode || (scrolled === false);
-  const logoSrc = "/img-content/logo-only.jpeg";
+  const logoSrc = "/images/logo-only.jpeg";
   
   if (showSlogan) {
     return (
