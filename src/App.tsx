@@ -179,7 +179,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center overflow-hidden bg-navy">
+      <section className="relative min-h-screen md:h-screen flex items-center overflow-hidden bg-navy pt-32 pb-16 md:py-0">
         {/* Hero Background with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -198,13 +198,13 @@ export default function App() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 bg-gold/10 border border-gold/30 rounded-full text-gold text-xs font-bold uppercase tracking-[0.3em] mb-6">
+            <span className="inline-block px-4 py-1.5 bg-gold/10 border border-gold/30 rounded-full text-gold text-xs font-bold uppercase tracking-[0.3em] mb-4 md:mb-6">
               Quality Guaranteed
             </span>
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-tight mb-8">
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-display font-bold text-white leading-tight mb-4 md:mb-8">
               {t.hero.headline}
             </h1>
-            <p className="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-xl font-light">
+            <p className="text-base md:text-xl text-slate-300 mb-6 md:mb-10 leading-relaxed max-w-xl font-light">
               {t.hero.subheadline}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
