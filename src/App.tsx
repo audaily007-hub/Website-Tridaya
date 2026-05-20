@@ -90,7 +90,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
-  const [productLayout, setProductLayout] = useState<'grid' | 'bento' | 'compare'>('grid');
+  const [productLayout, setProductLayout] = useState<'grid' | 'bento' | 'compare'>('bento');
 
   const t = translations[lang];
 
@@ -330,45 +330,6 @@ export default function App() {
           <h2 className="text-4xl font-display font-bold text-navy">{t.products.title}</h2>
         </div>
 
-        {/* Layout Modeler Controls */}
-        <div className="container mx-auto px-6 mb-16 flex justify-center">
-          <div className="inline-flex flex-wrap md:flex-nowrap gap-1.5 p-1.5 bg-sage-light/40 border border-sage/10 rounded-2xl backdrop-blur-sm shadow-sm">
-            <button
-              onClick={() => setProductLayout('grid')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-xs tracking-wider uppercase transition-all duration-300 ${
-                productLayout === 'grid'
-                  ? 'bg-navy text-white shadow-md'
-                  : 'text-sage hover:text-navy hover:bg-white/50'
-              }`}
-            >
-              <Grid size={15} />
-              {lang === 'EN' ? 'Terracotta Grid' : 'Kisi Terakota'}
-            </button>
-            <button
-              onClick={() => setProductLayout('bento')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-xs tracking-wider uppercase transition-all duration-300 ${
-                productLayout === 'bento'
-                  ? 'bg-navy text-white shadow-md'
-                  : 'text-sage hover:text-navy hover:bg-white/50'
-              }`}
-            >
-              <LayoutList size={15} />
-              {lang === 'EN' ? 'Editorial Bento' : 'Editorial Bento'}
-            </button>
-            <button
-              onClick={() => setProductLayout('compare')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-xs tracking-wider uppercase transition-all duration-300 ${
-                productLayout === 'compare'
-                  ? 'bg-navy text-white shadow-md'
-                  : 'text-sage hover:text-navy hover:bg-white/50'
-              }`}
-            >
-              <FileSpreadsheet size={15} />
-              {lang === 'EN' ? 'Spec Sheet Compare' : 'Tabel Spesifikasi'}
-            </button>
-          </div>
-        </div>
-
         <div className="container mx-auto px-6">
           <AnimatePresence mode="wait">
             {productLayout === 'grid' && (
@@ -434,7 +395,7 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.4 }}
-                className="space-y-8"
+                className="space-y-12 max-w-6xl mx-auto"
               >
                 {t.products.items.map((product, idx) => {
                   const isEven = idx % 2 === 0;
@@ -444,14 +405,14 @@ export default function App() {
                       key={idx}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: true, margin: "-100px" }}
                       transition={{ duration: 0.5, delay: 0.1 }}
                       className={`bg-white rounded-3xl overflow-hidden border border-sage/12 shadow-[0_8px_30px_rgb(92,110,97,0.02)] flex flex-col ${
                         isEven ? 'md:flex-row' : 'md:flex-row-reverse'
-                      } hover:border-gold/30 hover:shadow-[0_24px_50px_rgba(92,110,97,0.06)] transition-all duration-500 cursor-pointer min-h-[300px]`}
+                      } hover:border-gold/30 hover:shadow-[0_24px_50px_rgba(92,110,97,0.06)] transition-all duration-500 cursor-pointer min-h-[340px] md:min-h-[420px]`}
                       onClick={() => setSelectedProduct(product)}
                     >
-                      <div className="w-full md:w-5/12 relative aspect-[16/10] md:aspect-auto overflow-hidden bg-sage-light/30">
+                      <div className="w-full md:w-5/12 relative aspect-[16/10] md:aspect-auto min-h-[260px] md:min-h-[420px] overflow-hidden bg-sage-light/30 flex-shrink-0">
                         <img 
                           src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
                           alt={product.name}
@@ -461,7 +422,7 @@ export default function App() {
                             e.currentTarget.src = `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`;
                           }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-navy/20 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-navy/30 to-transparent"></div>
                         <div className="absolute top-4 left-4 z-10">
                           <span className="bg-white/95 backdrop-blur-md text-navy text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-sage/10 shadow-sm">
                             {itemTag}
