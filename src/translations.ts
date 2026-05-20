@@ -201,9 +201,9 @@ export const translations = {
     },
     exportTerms: {
       title: 'Export Logistics & Terms',
-      logistics: 'Logistics: DHL for global sample distribution.',
+      logistics: 'Logistics: Multi-logistics support for worldwide sample distribution.',
       incoterms: 'Incoterms: FOB, CIF (Port to Port).',
-      payment: 'Payment: Irrevocable LC at Sight.',
+      payment: 'Payment: LC & TT',
     },
     footer: {
       address: 'Purbalingga, Central Java, Indonesia',
@@ -411,9 +411,9 @@ export const translations = {
     },
     exportTerms: {
       title: 'Logistik & Syarat Ekspor',
-      logistics: 'Logistik: DHL untuk distribusi sampel global.',
+      logistics: 'Logistik: Dukungan multi-logistik untuk distribusi sampel ke seluruh dunia.',
       incoterms: 'Incoterms: FOB, CIF (Pelabuhan ke Pelabuhan).',
-      payment: 'Pembayaran: LC Irrevocable at Sight.',
+      payment: 'Pembayaran: LC & TT',
     },
     footer: {
       address: 'Purbalingga, Jawa Tengah, Indonesia',
