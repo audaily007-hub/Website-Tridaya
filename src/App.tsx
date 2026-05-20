@@ -26,7 +26,9 @@ import {
   LayoutList,
   FileSpreadsheet,
   Target,
-  Eye
+  Eye,
+  Star,
+  Quote
 } from 'lucide-react';
 import { translations, Language } from './translations';
 
@@ -93,6 +95,7 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
   const [productLayout, setProductLayout] = useState<'grid' | 'bento' | 'compare'>('bento');
+  const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
   const t = translations[lang];
 
@@ -667,6 +670,111 @@ export default function App() {
         </div>
       </section>
 
+      {/* Testimonials & Partners Section */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-1/2 left-0 w-80 h-80 bg-sage-light/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[120px] pointer-events-none translate-x-1/3"></div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-gold font-bold uppercase tracking-widest text-sm mb-3 block">
+              {lang === 'EN' ? 'Global Trust' : 'Kepercayaan Global'}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-navy mb-4">
+              {t.testimonials.title}
+            </h2>
+            <p className="text-slate-500 font-light text-lg">
+              {t.testimonials.subtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+            <AnimatePresence mode="popLayout">
+              {(showAllTestimonials ? t.testimonials.items : t.testimonials.items.slice(0, 6)).map((item, index) => {
+                // Generate a visual avatar with initials
+                const getInitials = (roleText: string) => {
+                  return roleText
+                    .replace(/[^a-zA-Z ]/g, "")
+                    .split(" ")
+                    .filter(word => !["and", "with", "the", "for", "of"].includes(word.toLowerCase()))
+                    .slice(0, 2)
+                    .map(word => word[0])
+                    .join("")
+                    .toUpperCase();
+                };
+
+                const initials = getInitials(item.role);
+
+                return (
+                  <motion.div
+                    key={item.role + index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+                    className="bg-white border border-slate-100 shadow-[0_4px_25px_rgba(92,110,97,0.03)] p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between hover:shadow-[0_12px_40px_rgba(92,110,97,0.08)] hover:border-gold/20 transition-all duration-300 group"
+                  >
+                    {/* Watermark Quote Icon */}
+                    <Quote className="text-gold/5 absolute right-6 top-6 w-16 h-16 transform group-hover:scale-110 group-hover:text-gold/10 transition-transform duration-500 pointer-events-none" />
+
+                    <div>
+                      {/* Rating Stars */}
+                      <div className="flex gap-1 text-gold mb-6">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} size={15} fill="currentColor" className="text-gold" />
+                        ))}
+                      </div>
+
+                      {/* Review Text */}
+                      <p className="text-slate-600 text-[15px] leading-relaxed italic mb-8 font-light relative z-10">
+                        {item.text}
+                      </p>
+                    </div>
+
+                    {/* Author Details with rich badging */}
+                    <div className="flex items-center gap-4 mt-auto pt-6 border-t border-slate-100">
+                      <div className="w-11 h-11 rounded-full bg-navy/5 border border-navy/10 flex items-center justify-center text-navy font-bold text-xs select-none shadow-inner group-hover:bg-gold group-hover:text-navy group-hover:border-gold transition-colors duration-300">
+                        {initials}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-navy text-sm leading-tight group-hover:text-gold transition-colors duration-300">
+                          {item.role}
+                        </h4>
+                        <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-400 block mt-1">
+                          {lang === 'EN' ? 'Verified Partner' : 'Mitra Terverifikasi'}
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+
+          {/* Toggle Button / Show All Testimonials */}
+          {t.testimonials.items.length > 6 && (
+            <div className="mt-16 text-center">
+              <button
+                onClick={() => setShowAllTestimonials(!showAllTestimonials)}
+                className="inline-flex items-center gap-2 bg-navy text-white font-bold px-8 py-3.5 rounded-full hover:bg-gold hover:text-navy transition-all transform hover:scale-105 shadow-md active:scale-95"
+              >
+                <span>
+                  {showAllTestimonials 
+                    ? (lang === 'EN' ? 'Show Less' : 'Tampilkan Lebih Sedikit') 
+                    : (lang === 'EN' ? 'Show All Testimonials' : 'Tampilkan Semua Testimoni')}
+                </span>
+                <ChevronRight 
+                  size={18} 
+                  className={`transform transition-transform duration-300 ${showAllTestimonials ? 'rotate-90' : ''}`} 
+                />
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="mt-auto bg-navy pt-20 pb-10 border-t border-white/5">
         <div className="container mx-auto px-6">
@@ -676,7 +784,7 @@ export default function App() {
                 <LogoComponent showSlogan={true} />
               </div>
               <p className="text-slate-400 text-sm max-w-sm leading-relaxed mb-8 italic">
-                Bridging Indonesian excellence with the world since 2024. Your trusted partner in premium agricultural and handicraft exports.
+                Bridging Indonesian excellence with the world since 2004. Your trusted partner in premium agricultural and handicraft exports.
               </p>
               <div className="flex gap-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-gold hover:text-navy transition-all"><Facebook size={18} /></a>

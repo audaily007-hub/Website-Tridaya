@@ -237,6 +237,52 @@ export const translations = {
       incoterms: 'Incoterms: FOB, CIF (Port to Port).',
       payment: 'Payment: LC & TT',
     },
+    testimonials: {
+      title: 'What Our International Partners Say',
+      subtitle: 'What global buyers and wholesale partners say about their experience with us.',
+      items: [
+        {
+          role: 'International Buyer, Middle East',
+          text: '"We are satisfied with the product quality and consistent packaging standards. Communication was smooth and shipment handling was professional throughout the process."'
+        },
+        {
+          role: 'Import Partner, Europe',
+          text: '"The spices arrived in excellent condition with strong aroma and clean packaging. The supplier was responsive and reliable from inquiry to delivery."'
+        },
+        {
+          role: 'Distributor, Asia',
+          text: '"We appreciate the stable product quality and fast sample distribution support. It helped us evaluate products efficiently before placing larger orders."'
+        },
+        {
+          role: 'Wholesale Buyer, North America',
+          text: '"Very professional export handling and clear documentation process. Delivery coordination was efficient and the products met our market standards."'
+        },
+        {
+          role: 'Spice Importer, UAE',
+          text: '"The cardamom quality exceeded our expectations. Product grading was consistent and suitable for our retail distribution needs."'
+        },
+        {
+          role: 'Food Ingredient Supplier, Singapore',
+          text: '"We value the responsive communication and flexibility in packaging options. The team handled our custom requirements professionally."'
+        },
+        {
+          role: 'Trading Company, Turkey',
+          text: '"Reliable supplier with good operational support. The shipment process was well coordinated and the products arrived on schedule."'
+        },
+        {
+          role: 'Agricultural Importer, India',
+          text: '"The cloves and nutmeg quality were very good with proper moisture control and clean sorting. We look forward to long-term cooperation."'
+        },
+        {
+          role: 'Distributor, Africa',
+          text: '"We tested several suppliers before choosing Tridaya. Their consistency, professionalism, and logistics support gave us confidence to continue working together."'
+        },
+        {
+          role: 'Global Commodity Buyer, Europe',
+          text: '"From product inquiry to export shipment, the process was transparent and efficient. The supplier understands international buyer expectations very well."'
+        }
+      ]
+    },
     footer: {
       address: 'Purbalingga, Central Java, Indonesia',
       rights: '© 2026 CV Tridaya Nusantara Global. All rights reserved.',
@@ -478,6 +524,52 @@ export const translations = {
       logistics: 'Logistik: Dukungan multi-logistik untuk distribusi sampel ke seluruh dunia.',
       incoterms: 'Incoterms: FOB, CIF (Pelabuhan ke Pelabuhan).',
       payment: 'Pembayaran: LC & TT',
+    },
+    testimonials: {
+      title: 'Testimoni & Mitra Internasional',
+      subtitle: 'Apa yang dikatakan pembeli global dan mitra grosir tentang pengalaman mereka bersama kami.',
+      items: [
+        {
+          role: 'Pembeli Internasional, Timur Tengah',
+          text: '"Kami puas dengan kualitas produk dan standar pengemasan yang konsisten. Komunikasi berjalan lancar dan penanganan pengiriman sangat profesional sepanjang proses."'
+        },
+        {
+          role: 'Mitra Impor, Eropa',
+          text: '"Rempah-rempah tiba dalam kondisi sangat baik dengan aroma kuat dan kemasan bersih. Pemasok sangat responsif dan andal mulai dari pertanyaan hingga pengiriman."'
+        },
+        {
+          role: 'Distributor, Asia',
+          text: '"Kami mengapresiasi kualitas produk yang stabil dan dukungan distribusi sampel yang cepat. Ini membantu kami mengevaluasi produk secara efisien sebelum melakukan pemesanan besar."'
+        },
+        {
+          role: 'Pembeli Grosir, Amerika Utara',
+          text: '"Penanganan ekspor yang sangat profesional dan proses dokumentasi yang jelas. Koordinasi pengiriman efisien dan produk memenuhi standar pasar kami."'
+        },
+        {
+          role: 'Importir Rempah, UEA',
+          text: '"Kualitas kapulaga melebihi ekspektasi kami. Kategori (grading) produk konsisten dan cocok untuk kebutuhan distribusi ritel kami."'
+        },
+        {
+          role: 'Pemasok Bahan Makanan, Singapura',
+          text: '"Kami menghargai komunikasi yang responsif dan fleksibilitas dalam pilihan pengemasan. Tim menangani kebutuhan khusus kami secara profesional."'
+        },
+        {
+          role: 'Perusahaan Dagang, Turki',
+          text: '"Pemasok tepercaya dengan dukungan operasional yang baik. Proses pengiriman terkoordinasi dengan baik dan produk tiba sesuai jadwal."'
+        },
+        {
+          role: 'Importir Pertanian, India',
+          text: '"Kualitas cengkih dan pala sangat baik dengan kontrol kelembapan yang tepat dan penyortiran yang bersih. Kami menantikan kerja sama jangka panjang."'
+        },
+        {
+          role: 'Distributor, Afrika',
+          text: '"Kami menguji beberapa pemasok sebelum memilih Tridaya. Konsistensi, profesionalisme, dan dukungan logistik mereka memberikan kami keyakinan untuk terus bekerja sama."'
+        },
+        {
+          role: 'Pembeli Komoditas Global, Eropa',
+          text: '"Dari pertanyaan produk hingga pengiriman ekspor, prosesnya transparan dan efisien. Pemasok sangat memahami ekspektasi pembeli internasional."'
+        }
+      ]
     },
     footer: {
       address: 'Purbalingga, Jawa Tengah, Indonesia',
