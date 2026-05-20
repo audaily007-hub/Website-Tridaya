@@ -541,49 +541,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Export Terms Section */}
-      <section className="py-24 premium-gradient text-white relative overflow-hidden">
-        {/* Background Decorative Circles */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gold/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2"></div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-display font-bold text-center mb-16 text-gold">{t.exportTerms.title}</h2>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm text-center">
-                <Truck className="mx-auto mb-6 text-gold" size={32} />
-                <h4 className="text-xl font-bold mb-4">Sample Logistics</h4>
-                <p className="text-slate-300 text-sm">{t.exportTerms.logistics}</p>
-              </div>
-              <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm text-center">
-                <Globe className="mx-auto mb-6 text-gold" size={32} />
-                <h4 className="text-xl font-bold mb-4">International Trade</h4>
-                <p className="text-slate-300 text-sm">{t.exportTerms.incoterms}</p>
-              </div>
-              <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm text-center">
-                <ShieldCheck className="mx-auto mb-6 text-gold" size={32} />
-                <h4 className="text-xl font-bold mb-4">Secure Payment</h4>
-                <p className="text-slate-300 text-sm">{t.exportTerms.payment}</p>
-              </div>
-            </div>
-
-            <div className="mt-16 text-center">
-              <a 
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-white text-navy font-bold px-10 py-4 rounded-full hover:bg-gold hover:text-navy transition-all transform hover:scale-105"
-              >
-                Request a Custom Quote
-                <ArrowRight size={20} />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="mt-auto bg-navy pt-20 pb-10 border-t border-white/5">
         <div className="container mx-auto px-6">
