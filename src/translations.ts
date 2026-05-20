@@ -207,7 +207,7 @@ export const translations = {
     },
     footer: {
       address: 'Purbalingga, Central Java, Indonesia',
-      rights: '© 2024 CV Tridaya Nusantara Global. All rights reserved.',
+      rights: '© 2026 CV Tridaya Nusantara Global. All rights reserved.',
     },
     waMessage: "Hello CV Tridaya Nusantara Global, I visited your website and I am interested in your products (please specify: Coffee/Charcoal/Spices/Brooms). Could you please provide more information regarding the specifications and minimum order quantity (MOQ)? Thank you.",
   },
@@ -417,7 +417,7 @@ export const translations = {
     },
     footer: {
       address: 'Purbalingga, Jawa Tengah, Indonesia',
-      rights: '© 2024 CV Tridaya Nusantara Global. Hak cipta dilindungi.',
+      rights: '© 2026 CV Tridaya Nusantara Global. Hak cipta dilindungi.',
     },
     waMessage: "Halo CV Tridaya Nusantara Global, saya melihat website Anda dan tertarik dengan produk (mohon sebutkan: Kopi/Arang/Rempah/Sapu). Bisa berikan informasi lebih lanjut mengenai spesifikasi dan minimal order? Terima kasih.",
   },

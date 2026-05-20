@@ -324,7 +324,7 @@ export default function App() {
       </section>
 
       {/* Products Grid */}
-      <section id="products" className="py-24 bg-[#FCFAF7]">
+      <section id="products" className="py-24 bg-sage-light/30">
         <div className="container mx-auto px-6 text-center mb-10">
           <span className="text-gold font-bold uppercase tracking-widest text-sm mb-4 block">Catalog</span>
           <h2 className="text-4xl font-display font-bold text-navy">{t.products.title}</h2>
@@ -412,19 +412,26 @@ export default function App() {
                       } hover:border-gold/30 hover:shadow-[0_24px_50px_rgba(92,110,97,0.06)] transition-all duration-500 cursor-pointer min-h-[340px] md:min-h-[420px]`}
                       onClick={() => setSelectedProduct(product)}
                     >
-                      <div className="w-full md:w-5/12 relative aspect-[16/10] md:aspect-auto min-h-[260px] md:min-h-[420px] overflow-hidden bg-sage-light/30 flex-shrink-0">
+                      <div className="w-full md:w-5/12 relative aspect-[16/10] md:aspect-auto min-h-[260px] md:min-h-[420px] overflow-hidden bg-sage-light/40 flex-shrink-0 flex items-center justify-center p-6 md:p-8">
+                        {/* Underlay Ambient Glow */}
+                        <img 
+                          src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
+                          alt=""
+                          className="absolute inset-0 w-full h-full object-cover opacity-[0.12] blur-xl scale-110 pointer-events-none"
+                          referrerPolicy="no-referrer"
+                        />
                         <img 
                           src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
                           alt={product.name}
-                          className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
+                          className="w-full h-full object-contain rounded-2xl transform scale-[1.1] hover:scale-[1.16] transition-transform duration-[1.2s] z-10 drop-shadow-md select-none"
                           referrerPolicy="no-referrer"
                           onError={(e) => {
                             e.currentTarget.src = `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`;
                           }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-navy/30 to-transparent"></div>
-                        <div className="absolute top-4 left-4 z-10">
-                          <span className="bg-white/95 backdrop-blur-md text-navy text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-sage/10 shadow-sm">
+                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-navy/[0.04] to-transparent pointer-events-none z-[11]" />
+                        <div className="absolute top-4 left-4 z-20">
+                          <span className="bg-white/95 backdrop-blur-sm text-navy text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-sage/15 shadow-sm">
                             {itemTag}
                           </span>
                         </div>
@@ -586,7 +593,7 @@ export default function App() {
                 <LogoComponent showSlogan={true} />
               </div>
               <p className="text-slate-400 text-sm max-w-sm leading-relaxed mb-8 italic">
-                Bridging Indonesian excellence with the world since 2004. Your trusted partner in premium agricultural and handicraft exports.
+                Bridging Indonesian excellence with the world since 2024. Your trusted partner in premium agricultural and handicraft exports.
               </p>
               <div className="flex gap-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-gold hover:text-navy transition-all"><Facebook size={18} /></a>
@@ -627,9 +634,14 @@ export default function App() {
           </div>
 
           <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-xs">
-              {t.footer.rights}
-            </p>
+            <div className="flex flex-col gap-1 text-center md:text-left">
+              <p className="text-slate-500 text-xs">
+                {t.footer.rights}
+              </p>
+              <p className="text-slate-500/85 text-[11px]">
+                Design & Develop by <a href="https://kerjago.my.id" target="_blank" rel="noopener noreferrer" className="text-gold/80 hover:text-gold transition-colors font-medium">kerjago.my.id</a>
+              </p>
+            </div>
             <div className="flex gap-8 text-slate-500 text-xs">
               <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
@@ -667,19 +679,29 @@ export default function App() {
               </button>
 
               {/* Left Side: Product Image & Spotlight */}
-              <div className="w-full md:w-5/12 relative aspect-[4/3] md:aspect-auto min-h-[250px] md:h-full bg-slate-100 flex-shrink-0">
+              <div className="w-full md:w-5/12 relative aspect-[4/3] md:aspect-auto min-h-[250px] md:h-full bg-sage-light/40 flex-shrink-0 flex items-center justify-center p-6 overflow-hidden">
+                {/* Underlay Ambient Glow */}
                 <img 
                   src={selectedProduct.image} 
-                  alt={selectedProduct.name}
-                  className="w-full h-full object-cover md:absolute md:inset-0"
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-[0.14] blur-xl scale-110 pointer-events-none"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     e.currentTarget.src = 'https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600';
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 md:from-transparent via-black/20 to-transparent"></div>
-                <div className="absolute bottom-6 left-6 right-6 md:hidden">
-                  <h3 className="text-2xl font-display font-bold text-white mb-1">{selectedProduct.name}</h3>
+                <img 
+                  src={selectedProduct.image} 
+                  alt={selectedProduct.name}
+                  className="relative z-10 w-full h-full object-contain rounded-2xl drop-shadow-md select-none transform scale-[1.1] hover:scale-[1.16] transition-transform duration-700"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600';
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/60 md:from-transparent via-transparent to-transparent pointer-events-none z-15"></div>
+                <div className="absolute bottom-6 left-6 right-6 md:hidden z-20">
+                  <h3 className="text-2xl font-display font-bold text-white mb-1 shadow-sm">{selectedProduct.name}</h3>
                   <p className="text-gold text-xs font-bold uppercase tracking-wider">{selectedProduct.desc}</p>
                 </div>
               </div>

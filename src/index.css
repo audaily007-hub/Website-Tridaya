@@ -5,14 +5,14 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", sans-serif;
   
-  --color-navy: #313F38;         /* Smoky Forest Sage (Deep Greenish/Gray Charcoal) */
-  --color-navy-dark: #1E2723;    /* Very Deep Pine Shadow */
-  --color-gold: #B8653D;         /* Organic Terracotta Clay */
-  --color-gold-light: #CE8660;   /* Light Terracotta Ochre */
-  --color-earth-bg: #FAF6F2;     /* Warm Clay-Brown Minimalist Studio Background */
-  --color-earth-card: #FFFFFF;   /* Clean organic paper white */
-  --color-sage: #5C6E61;         /* Warm Sage Accent */
-  --color-sage-light: #EBF0EC;   /* Pale Sage Wash */
+  --color-navy: #1E2260;         /* Royal Indigo */
+  --color-navy-dark: #0E1030;    /* Deep Royal Indigo Shadow */
+  --color-gold: #C5A059;         /* Rich Premium Metallic Gold */
+  --color-gold-light: #DFC47E;   /* Mellow Satin Champagne Gold */
+  --color-earth-bg: #FAF9FC;     /* Opalescent Indigo/Gold Alabaster Background */
+  --color-earth-card: #FFFFFF;   /* Pure paper white */
+  --color-sage: #50557E;         /* Indigo Slate Accent */
+  --color-sage-light: #EFF0FA;   /* Royal Silver-Lavender Wash */
 }
 
 @layer base {
