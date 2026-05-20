@@ -453,7 +453,7 @@ export default function App() {
               </p>
               <p className="text-slate-400 text-sm flex items-center gap-2">
                 <Mail size={14} className="text-gold" />
-                export@tridayanusantara.com
+                inquiry@tridayaglobal.com
               </p>
             </div>
           </div>

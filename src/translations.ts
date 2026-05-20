@@ -151,6 +151,52 @@ export const translations = {
             'Export Availability': 'Year‑round'
           }
         },
+        {
+          name: 'Traditional Premium Rayung Broom',
+          desc: 'Exquisite traditional handcrafted rayung broom from Purbalingga',
+          image: '/img-content/rayung-broom-custom.jpg',
+          fullDesc: "Traditional Premium Rayung Broom From Purbalingga, Central Java, Indonesia. Crafted with generations of traditional hand‑making expertise. Made from selected high‑quality rayung grass (gelagah grass) — strong yet flexible. These brooms offer superior durability and attractive natural appearance. Careful material selection and colorful hand‑weaving at the neck ensure premium quality and neat finishing, meeting global market standards.",
+          specs: {
+            'Product Name': 'Traditional Premium Rayung Broom',
+            'Origin': 'Purbalingga, Central Java, Indonesia',
+            'Product Condition': 'Dried, Neatly Woven, Selected Fibers',
+            'MOQ': '20,000 pcs',
+            'Packaging': 'Gunny sack / Jute bag, 50 pcs per pack',
+            'Monthly Supply Capacity': '50,000 pcs',
+            'Export Availability': 'Year‑round'
+          }
+        },
+        {
+          name: 'Candlenut',
+          desc: 'Premium high-oil content dried candlenuts for culinary and medicinal use',
+          image: '/img-content/candlenut-custom.jpg',
+          fullDesc: "Candlenuts have a high oil content, so they are often used as a source of natural oil. In addition, candlenuts have anti‑inflammatory and antioxidant properties, making them widely used in traditional medicine to treat various health conditions.",
+          specs: {
+            'Product Name': 'Candlenut',
+            'Product Type': 'Spice',
+            'Condition': 'Dried | Clean | Premium Quality',
+            'Size': 'Approx. 3 – 5 cm diameter',
+            'Packaging': 'Sack',
+            'Export Availability': 'Year‑round'
+          }
+        },
+        {
+          name: 'Premium Robusta Green Coffee Beans',
+          desc: 'Strong, bold Lampung Robusta coffee beans with high viscosity',
+          image: '/img-content/robusta-coffee-custom.jpg',
+          fullDesc: "Premium Robusta Green Coffee Beans From Indonesia. These beans feature a strong, bold flavor profile. Grown at medium altitudes, this coffee is known for its full body, high viscosity, and rich aroma with notes of chocolate, nuts, and spices. Strict sorting processes guarantee premium export quality for the global market.",
+          specs: {
+            'Product Name': 'Premium Robusta Green Coffee Beans',
+            'Origin': 'Lampung, Indonesia',
+            'Grade & Process': 'Grade 1 – Full Wash',
+            'Moisture Content': 'Max 10%',
+            'Size': 'Screen 16/18 (>90%)',
+            'MOQ': '25 tons',
+            'Packaging': 'Gunny bag lined with Grainpro inner',
+            'Monthly Supply Capacity': '100 tons',
+            'Export Availability': 'Year‑round'
+          }
+        },
       ],
     },
     exportTerms: {
@@ -312,6 +358,52 @@ export const translations = {
             'MOQ': '50 Ton',
             'Pengemasan': 'Karung goni / Karung rami',
             'Kapasitas Pasokan Bulanan': '500 Ton',
+            'Ketersediaan Ekspor': 'Sepanjang tahun'
+          }
+        },
+        {
+          name: 'Sapu Rayung Premium Tradisional',
+          desc: 'Sapu rayung kerajinan tangan tradisional premium dari Purbalingga',
+          image: '/img-content/rayung-broom-custom.jpg',
+          fullDesc: "Sapu Rayung Premium Tradisional dari Purbalingga, Jawa Tengah, Indonesia. Dibuat dengan keahlian tangan tradisional turun-temurun selama beberapa generasi. Terbuat dari rumput rayung (rumput gelagah) pilihan berkualitas tinggi — kuat sekaligus lentur. Sapu ini menawarkan daya tahan unggul dan tampilan alami yang menarik. Pemilihan bahan yang cermat dan anyaman tangan yang kaya warna di bagian leher memastikan kualitas premium dan penyelesaian akhir yang rapi, memenuhi standar pasar global.",
+          specs: {
+            'Nama Produk': 'Sapu Rayung Premium Tradisional',
+            'Asal': 'Purbalingga, Jawa Tengah, Indonesia',
+            'Kondisi Produk': 'Kering, Dianyam Rapi, Serat Pilihan',
+            'MOQ': '20.000 pcs',
+            'Pengemasan': 'Karung goni / Karung rami, 50 pcs per pak',
+            'Kapasitas Pasokan Bulanan': '50.000 pcs',
+            'Ketersediaan Ekspor': 'Sepanjang tahun'
+          }
+        },
+        {
+          name: 'Kemiri',
+          desc: 'Kemiri kering berkualitas premium dengan kandungan minyak tinggi',
+          image: '/img-content/candlenut-custom.jpg',
+          fullDesc: "Kemiri memiliki kandungan minyak yang tinggi, sehingga sering digunakan sebagai sumber minyak alami. Selain itu, kemiri memiliki khasiat antiinflamasi dan antioksidan, menjadikannya banyak digunakan dalam pengobatan tradisional untuk berbagai kondisi kesehatan.",
+          specs: {
+            'Nama Produk': 'Kemiri',
+            'Jenis Produk': 'Rempah',
+            'Kondisi': 'Kering | Bersih | Kualitas Premium',
+            'Ukuran': 'Diameter sekitar 3 – 5 cm',
+            'Pengemasan': 'Karung',
+            'Ketersediaan Ekspor': 'Sepanjang tahun'
+          }
+        },
+        {
+          name: 'Biji Kopi Hijau Robusta Premium',
+          desc: 'Biji kopi Robusta Lampung yang kuat dan mantap dengan tingkat kekentalan tinggi',
+          image: '/img-content/robusta-coffee-custom.jpg',
+          fullDesc: "Biji Kopi Hijau Robusta Premium dari Indonesia. Biji kopi ini menawarkan profil rasa yang kuat dan mantap. Ditanam di ketinggian sedang, kopi ini dikenal dengan teksturnya yang kental (full body), viskositas tinggi, serta aroma kaya dengan nuansa cokelat, kacang-kacangan, dan rempah-rempah. Proses sortir yang ketat menjamin kualitas ekspor premium untuk pasar global.",
+          specs: {
+            'Nama Produk': 'Biji Kopi Hijau Robusta Premium',
+            'Asal': 'Lampung, Indonesia',
+            'Mutu & Proses': 'Mutu 1 – Full Wash',
+            'Kadar Air': 'Maks 10%',
+            'Ukuran': 'Screen 16/18 (>90%)',
+            'MOQ': '25 Ton',
+            'Pengemasan': 'Karung goni dilapisi Grainpro di dalam',
+            'Kapasitas Pasokan Bulanan': '100 Ton',
             'Ketersediaan Ekspor': 'Sepanjang tahun'
           }
         },
