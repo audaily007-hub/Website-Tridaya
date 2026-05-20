@@ -21,7 +21,10 @@ import {
   MapPin,
   Mail,
   Phone,
-  ArrowRight
+  ArrowRight,
+  Grid,
+  LayoutList,
+  FileSpreadsheet
 } from 'lucide-react';
 import { translations, Language } from './translations';
 
@@ -87,6 +90,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const [productLayout, setProductLayout] = useState<'grid' | 'bento' | 'compare'>('grid');
 
   const t = translations[lang];
 
@@ -321,48 +325,251 @@ export default function App() {
 
       {/* Products Grid */}
       <section id="products" className="py-24 bg-[#FCFAF7]">
-        <div className="container mx-auto px-6 text-center mb-16">
+        <div className="container mx-auto px-6 text-center mb-10">
           <span className="text-gold font-bold uppercase tracking-widest text-sm mb-4 block">Catalog</span>
           <h2 className="text-4xl font-display font-bold text-navy">{t.products.title}</h2>
         </div>
 
+        {/* Layout Modeler Controls */}
+        <div className="container mx-auto px-6 mb-16 flex justify-center">
+          <div className="inline-flex flex-wrap md:flex-nowrap gap-1.5 p-1.5 bg-sage-light/40 border border-sage/10 rounded-2xl backdrop-blur-sm shadow-sm">
+            <button
+              onClick={() => setProductLayout('grid')}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-xs tracking-wider uppercase transition-all duration-300 ${
+                productLayout === 'grid'
+                  ? 'bg-navy text-white shadow-md'
+                  : 'text-sage hover:text-navy hover:bg-white/50'
+              }`}
+            >
+              <Grid size={15} />
+              {lang === 'EN' ? 'Terracotta Grid' : 'Kisi Terakota'}
+            </button>
+            <button
+              onClick={() => setProductLayout('bento')}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-xs tracking-wider uppercase transition-all duration-300 ${
+                productLayout === 'bento'
+                  ? 'bg-navy text-white shadow-md'
+                  : 'text-sage hover:text-navy hover:bg-white/50'
+              }`}
+            >
+              <LayoutList size={15} />
+              {lang === 'EN' ? 'Editorial Bento' : 'Editorial Bento'}
+            </button>
+            <button
+              onClick={() => setProductLayout('compare')}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-xs tracking-wider uppercase transition-all duration-300 ${
+                productLayout === 'compare'
+                  ? 'bg-navy text-white shadow-md'
+                  : 'text-sage hover:text-navy hover:bg-white/50'
+              }`}
+            >
+              <FileSpreadsheet size={15} />
+              {lang === 'EN' ? 'Spec Sheet Compare' : 'Tabel Spesifikasi'}
+            </button>
+          </div>
+        </div>
+
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {t.products.items.map((product, idx) => (
+          <AnimatePresence mode="wait">
+            {productLayout === 'grid' && (
               <motion.div 
-                key={idx}
-                className="group relative overflow-hidden rounded-2xl bg-white shadow-md border border-sage/20 cursor-pointer hover:shadow-xl transition-[box-shadow,border-color] duration-300 flex flex-col h-full"
-                initial={{ y: 0 }}
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-                onClick={() => setSelectedProduct(product)}
+                key="grid-layout"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4 }}
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
               >
-                <div className="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0 bg-sage-light/40">
-                  <img 
-                    src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
-                    alt={product.name}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      e.currentTarget.src = `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`;
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="bg-navy/90 text-white font-medium text-xs py-2 px-4 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity scale-95 group-hover:scale-100 duration-300">
-                      {lang === 'EN' ? 'View Specifications' : 'Lihat Spesifikasi'}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-lg font-display font-bold text-navy mb-2 group-hover:text-gold transition-colors">{product.name}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">{product.desc}</p>
-                  <div className="mt-auto flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider transition-all">
-                    {lang === 'EN' ? 'Specification Sheet' : 'Lembar Spesifikasi'} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  </div>
+                {t.products.items.map((product, idx) => {
+                  const tag = lang === 'EN' ? 'Premium Export' : 'Kualitas Ekspor';
+                  return (
+                    <motion.div 
+                      key={idx}
+                      className="group relative overflow-hidden rounded-2xl bg-white shadow-[0_8px_30px_rgb(92,110,97,0.03)] border border-sage/15 cursor-pointer hover:shadow-[0_24px_50px_rgba(92,110,97,0.08)] hover:border-gold/40 transition-all duration-500 flex flex-col h-full"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: (idx % 4) * 0.1 }}
+                      whileHover={{ y: -6 }}
+                      onClick={() => setSelectedProduct(product)}
+                    >
+                      <div className="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0 bg-sage-light/40">
+                        <img 
+                          src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
+                          alt={product.name}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            e.currentTarget.src = `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`;
+                          }}
+                        />
+                        <div className="absolute top-4 left-4 z-10">
+                          <span className="bg-white/95 backdrop-blur-md text-navy text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-sage/10 shadow-sm">
+                            {tag}
+                          </span>
+                        </div>
+                        <div className="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <span className="bg-navy/90 text-white font-medium text-xs py-2 px-4 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity scale-95 group-hover:scale-100 duration-300">
+                            {lang === 'EN' ? 'View Specifications' : 'Lihat Spesifikasi'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="text-lg font-display font-bold text-navy mb-2 group-hover:text-gold transition-colors">{product.name}</h3>
+                        <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-grow line-clamp-3 font-light">{product.desc}</p>
+                        <div className="mt-auto flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider transition-all">
+                          {lang === 'EN' ? 'Specification Sheet' : 'Lembar Spesifikasi'} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            )}
+
+            {productLayout === 'bento' && (
+              <motion.div 
+                key="bento-layout"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4 }}
+                className="space-y-8"
+              >
+                {t.products.items.map((product, idx) => {
+                  const isEven = idx % 2 === 0;
+                  const itemTag = idx === 0 || idx === 3 ? (lang === 'EN' ? 'Top Exporter Choice' : 'Pilihan Eksportir Teratas') : (lang === 'EN' ? '100% Direct Source' : 'Sumber Langsung 100%');
+                  return (
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                      className={`bg-white rounded-3xl overflow-hidden border border-sage/12 shadow-[0_8px_30px_rgb(92,110,97,0.02)] flex flex-col ${
+                        isEven ? 'md:flex-row' : 'md:flex-row-reverse'
+                      } hover:border-gold/30 hover:shadow-[0_24px_50px_rgba(92,110,97,0.06)] transition-all duration-500 cursor-pointer min-h-[300px]`}
+                      onClick={() => setSelectedProduct(product)}
+                    >
+                      <div className="w-full md:w-5/12 relative aspect-[16/10] md:aspect-auto overflow-hidden bg-sage-light/30">
+                        <img 
+                          src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
+                          alt={product.name}
+                          className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            e.currentTarget.src = `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`;
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-navy/20 to-transparent"></div>
+                        <div className="absolute top-4 left-4 z-10">
+                          <span className="bg-white/95 backdrop-blur-md text-navy text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-sage/10 shadow-sm">
+                            {itemTag}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="w-full md:w-7/12 p-8 md:p-10 flex flex-col justify-center text-left">
+                        <span className="text-gold text-xs font-bold uppercase tracking-wider mb-2">
+                          {product.specs?.['Origin'] || product.specs?.['Asal'] || 'Indonesia'}
+                        </span>
+                        <h3 className="text-2xl font-display font-bold text-navy mb-4 hover:text-gold transition-colors">
+                          {product.name}
+                        </h3>
+                        <p className="text-slate-500 text-sm leading-relaxed mb-6 font-light">
+                          {product.fullDesc ? (product.fullDesc.length > 180 ? `${product.fullDesc.substring(0, 180)}...` : product.fullDesc) : product.desc}
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-4 border-t border-sage/10 pt-5 mb-6">
+                          <div>
+                            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">MOQ</p>
+                            <p className="text-sm font-semibold text-navy mt-0.5">{product.specs?.['MOQ'] || 'Negotiable'}</p>
+                          </div>
+                          <div>
+                            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{lang === 'EN' ? 'Supply Capacity' : 'Kapasitas Pasok'}</p>
+                            <p className="text-sm font-semibold text-navy mt-0.5">{product.specs?.['Supply Capacity'] || product.specs?.['Monthly Supply Capacity'] || '100+ Tons / Month'}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider">
+                          {lang === 'EN' ? 'Explore Technical Specifications' : 'Eksplorasi Spesifikasi Teknis'} <ArrowRight size={14} className="hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            )}
+
+            {productLayout === 'compare' && (
+              <motion.div 
+                key="compare-layout"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white rounded-3xl border border-sage/12 shadow-[0_8px_30px_rgb(92,110,97,0.02)] overflow-hidden"
+              >
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-sage-light/35 border-b border-sage/12">
+                        <th className="p-6 text-xs uppercase tracking-wider font-bold text-navy">{lang === 'EN' ? 'Product' : 'Produk'}</th>
+                        <th className="p-6 text-xs uppercase tracking-wider font-bold text-navy">{lang === 'EN' ? 'Origin' : 'Asal'}</th>
+                        <th className="p-6 text-xs uppercase tracking-wider font-bold text-navy">MOQ</th>
+                        <th className="p-6 text-xs uppercase tracking-wider font-bold text-navy">{lang === 'EN' ? 'Capacity' : 'Kapasitas'}</th>
+                        <th className="p-6 text-xs uppercase tracking-wider font-bold text-navy">{lang === 'EN' ? 'Product Shape / Form' : 'Bentuk / Jenis'}</th>
+                        <th className="p-6 text-xs uppercase tracking-wider font-bold text-navy"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {t.products.items.map((product, idx) => {
+                        const origin = product.specs?.['Origin'] || product.specs?.['Asal'] || 'East Java, Indonesia';
+                        const moq = product.specs?.['MOQ'] || 'Negotiable';
+                        const capacity = product.specs?.['Supply Capacity'] || product.specs?.['Monthly Supply Capacity'] || '100 Tons / month';
+                        const valForm = product.specs?.['Product Form'] || product.specs?.['Product Condition'] || product.specs?.['Product Type'] || 'Premium Clean';
+                        
+                        return (
+                          <tr key={idx} className="border-b border-sage/8 hover:bg-sage-light/10 transition-colors">
+                            <td className="p-5 flex items-center gap-4">
+                              <div className="w-12 h-12 rounded-lg overflow-hidden bg-sage-light/30 flex-shrink-0 relative">
+                                <img 
+                                  src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`}
+                                  alt={product.name}
+                                  className="w-full h-full object-cover absolute inset-0"
+                                  referrerPolicy="no-referrer"
+                                  onError={(e) => {
+                                    e.currentTarget.src = `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`;
+                                  }}
+                                />
+                              </div>
+                              <div>
+                                <div className="font-display font-bold text-navy text-base leading-tight">{product.name}</div>
+                                <div className="text-slate-400 text-xs mt-0.5 line-clamp-1 max-w-[200px]">{product.desc}</div>
+                              </div>
+                            </td>
+                            <td className="p-5 text-sm text-slate-600 font-medium">{origin}</td>
+                            <td className="p-5 text-sm font-semibold text-navy">{moq}</td>
+                            <td className="p-5 text-sm text-slate-600 font-medium">{capacity}</td>
+                            <td className="p-5 text-sm text-slate-500 font-light max-w-[150px] truncate">{valForm}</td>
+                            <td className="p-5 text-right">
+                              <button
+                                onClick={() => setSelectedProduct(product)}
+                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sage-light/50 border border-sage/20 hover:bg-gold hover:text-white hover:border-gold text-xs font-semibold text-navy transition-all duration-300 shadow-sm"
+                              >
+                                {lang === 'EN' ? 'Specs Sheet' : 'Spesifikasi'}
+                                <ArrowRight size={12} />
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </motion.div>
-            ))}
-          </div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
