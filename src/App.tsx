@@ -24,7 +24,9 @@ import {
   ArrowRight,
   Grid,
   LayoutList,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Target,
+  Eye
 } from 'lucide-react';
 import { translations, Language } from './translations';
 
@@ -285,6 +287,87 @@ export default function App() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision & Mission Section */}
+      <section className="py-24 bg-slate-50 border-t border-b border-slate-100 relative overflow-hidden">
+        {/* Subtle decorative mesh background */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-navy/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-gold font-bold uppercase tracking-widest text-sm mb-4 block">Purpose</span>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-navy">{t.visionMission.title}</h2>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-12 items-stretch max-w-6xl mx-auto">
+            {/* Vision Panel */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5 bg-navy text-white p-10 md:p-12 rounded-3xl shadow-xl border border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[400px] lg:min-h-full"
+            >
+              {/* Background accent */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/15 rounded-full blur-3xl"></div>
+              
+              <div>
+                <div className="w-16 h-16 bg-gold/10 rounded-2xl flex items-center justify-center text-gold mb-8 border border-gold/20">
+                  <Eye size={32} />
+                </div>
+                <h3 className="text-3xl font-display font-bold text-gold mb-6">{t.visionMission.vision.title}</h3>
+                <p className="text-slate-200 text-lg md:text-xl leading-relaxed font-light">
+                  "{t.visionMission.vision.text}"
+                </p>
+              </div>
+
+              <div className="mt-12 pt-8 border-t border-white/10 flex items-center gap-4 text-xs font-mono text-gold uppercase tracking-wider">
+                <span>CV Tridaya Nusantara Global</span>
+                <span className="w-2 h-2 rounded-full bg-gold"></span>
+                <span>World-Class Gateway</span>
+              </div>
+            </motion.div>
+
+            {/* Mission Panel */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7 flex flex-col justify-center"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-navy/5 rounded-xl flex items-center justify-center text-navy border border-navy/10">
+                  <Target size={24} />
+                </div>
+                <h3 className="text-2xl font-display font-bold text-navy">{t.visionMission.mission.title}</h3>
+              </div>
+
+              <div className="space-y-4 w-full">
+                {t.visionMission.mission.items.map((item, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    className="flex gap-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-gold/30 hover:shadow-md transition-all group"
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-navy text-white font-mono text-sm flex items-center justify-center font-bold shadow-md group-hover:bg-gold group-hover:text-navy transition-colors">
+                      0{index + 1}
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-navy mb-1.5 group-hover:text-gold transition-colors">{item.title}</h4>
+                      <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

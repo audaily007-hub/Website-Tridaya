@@ -18,6 +18,38 @@ export const translations = {
       content2: 'Based in Purbalingga, Central Java, our dedicated warehouse serves as the center for meticulous grading, processing, and packaging, ensuring every product meets international standards.',
       experience: '20+ Years Excellence',
     },
+    visionMission: {
+      title: 'Our Vision & Mission',
+      vision: {
+        title: 'Vision',
+        text: 'To become the primary gateway for Indonesia’s leading export commodities by providing a one-stop solution for diverse global market needs.',
+      },
+      mission: {
+        title: 'Mission',
+        items: [
+          {
+            title: 'Curated Quality Products',
+            desc: 'To curate and supply the best Indonesian products through strict quality control standards and reliable sourcing processes.',
+          },
+          {
+            title: 'One-Stop Global Access',
+            desc: 'To simplify access for international buyers in obtaining various high-quality products through a single integrated platform.',
+          },
+          {
+            title: 'Strategic Local Partnerships',
+            desc: 'To build strong strategic partnerships with local producers across multiple sectors to ensure sustainable and stable supply availability.',
+          },
+          {
+            title: 'Integrated Logistics Solutions',
+            desc: 'To provide efficient integrated logistics services tailored to different product categories and global distribution requirements.',
+          },
+          {
+            title: 'International Compliance Standards',
+            desc: 'To maintain international compliance standards across every exported product line to support trusted and sustainable global trade.',
+          },
+        ],
+      },
+    },
     values: {
       title: 'Our Core Values',
       accountability: {
@@ -227,6 +259,38 @@ export const translations = {
       content1: 'Dengan lebih dari 20 tahun pengalaman, CV Tridaya Nusantara Global telah berkembang dari pusat produksi lokal sapu Rayung menjadi eksportir global komoditas unggulan.',
       content2: 'Berbasis di Purbalingga, Jawa Tengah, gudang khusus kami berfungsi sebagai pusat grading, pemrosesan, dan pengemasan yang teliti, memastikan setiap produk memenuhi standar internasional.',
       experience: '20+ Tahun Keunggulan',
+    },
+    visionMission: {
+      title: 'Visi & Misi Kami',
+      vision: {
+        title: 'Visi',
+        text: 'Menjadi gerbang utama bagi komoditas ekspor unggulan Indonesia dengan menyediakan solusi satu atap untuk berbagai kebutuhan pasar global.',
+      },
+      mission: {
+        title: 'Misi',
+        items: [
+          {
+            title: 'Produk Berkualitas Terkurasi',
+            desc: 'Mengkurasi dan menyuplai produk Indonesia terbaik melalui standar kontrol kualitas yang ketat dan proses pengadaan yang andal.',
+          },
+          {
+            title: 'Akses Global Satu Atap',
+            desc: 'Menyederhanakan akses bagi pembeli internasional untuk mendapatkan berbagai produk berkualitas tinggi melalui satu platform terintegrasi.',
+          },
+          {
+            title: 'Kemitraan Lokal Strategis',
+            desc: 'Membangun kemitraan strategis yang kuat dengan produsen lokal di berbagai sektor untuk memastikan ketersediaan pasokan yang berkelanjutan dan stabil.',
+          },
+          {
+            title: 'Solusi Logistik Terintegrasi',
+            desc: 'Menyediakan layanan logistik terintegrasi yang efisien dan disesuaikan dengan berbagai kategori produk serta persyaratan distribusi global.',
+          },
+          {
+            title: 'Standar Kepatuhan Internasional',
+            desc: 'Menjaga standar kepatuhan internasional pada setiap lini produk yang diekspor untuk mendukung perdagangan global yang tepercaya dan berkelanjutan.',
+          },
+        ],
+      },
     },
     values: {
       title: 'Nilai Inti Kami',
