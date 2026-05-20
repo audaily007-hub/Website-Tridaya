@@ -106,7 +106,7 @@ export default function App() {
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(t.waMessage)}`;
 
   return (
-    <div className="min-h-screen selection:bg-gold selection:text-white">
+    <div className="min-h-screen flex flex-col selection:bg-gold selection:text-white">
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-5'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
@@ -286,7 +286,7 @@ export default function App() {
       </section>
 
       {/* Core Values Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-sage-light/30">
         <div className="container mx-auto px-6 text-center mb-16">
           <span className="text-gold font-bold uppercase tracking-widest text-sm mb-4 block">Principle</span>
           <h2 className="text-4xl font-display font-bold text-navy">{t.values.title}</h2>
@@ -306,7 +306,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group"
+                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow border border-sage/10 group"
               >
                 <div className="w-14 h-14 bg-navy/5 rounded-xl flex items-center justify-center text-navy mb-6 group-hover:bg-gold transition-colors group-hover:text-white">
                   <value.icon size={28} />
@@ -320,7 +320,7 @@ export default function App() {
       </section>
 
       {/* Products Grid */}
-      <section id="products" className="py-24 bg-white">
+      <section id="products" className="py-24 bg-[#FCFAF7]">
         <div className="container mx-auto px-6 text-center mb-16">
           <span className="text-gold font-bold uppercase tracking-widest text-sm mb-4 block">Catalog</span>
           <h2 className="text-4xl font-display font-bold text-navy">{t.products.title}</h2>
@@ -331,13 +331,13 @@ export default function App() {
             {t.products.items.map((product, idx) => (
               <motion.div 
                 key={idx}
-                className="group relative overflow-hidden rounded-2xl bg-white shadow-md border border-slate-200/60 cursor-pointer hover:shadow-xl transition-[box-shadow,border-color] duration-300 flex flex-col h-full"
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-md border border-sage/20 cursor-pointer hover:shadow-xl transition-[box-shadow,border-color] duration-300 flex flex-col h-full"
                 initial={{ y: 0 }}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
                 onClick={() => setSelectedProduct(product)}
               >
-                <div className="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0 bg-slate-100">
+                <div className="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0 bg-sage-light/40">
                   <img 
                     src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
                     alt={product.name}
@@ -410,7 +410,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-navy pt-20 pb-10 border-t border-white/5">
+      <footer className="mt-auto bg-navy pt-20 pb-10 border-t border-white/5">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div className="col-span-2">
@@ -532,7 +532,7 @@ export default function App() {
                     </p>
                   </div>
 
-                  <div className="border-t border-slate-100 pt-6">
+                  <div className="border-t border-sage/10 pt-6">
                     <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
                       Description
                     </h4>
@@ -542,13 +542,13 @@ export default function App() {
                   </div>
 
                   {selectedProduct.specs && (
-                    <div className="border-t border-slate-100 pt-6">
+                    <div className="border-t border-sage/10 pt-6">
                       <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-4">
                         Technical Specifications
                       </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-100 mb-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-sage-light/20 p-5 rounded-2xl border border-sage/10 mb-6">
                         {Object.entries(selectedProduct.specs).map(([key, val]: any) => (
-                          <div key={key} className="flex flex-col border-b border-slate-200/50 pb-2 last:border-0 last:pb-0">
+                          <div key={key} className="flex flex-col border-b border-sage/10 pb-2 last:border-0 last:pb-0">
                             <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
                               {key}
                             </span>
@@ -563,7 +563,7 @@ export default function App() {
                 </div>
 
                 {/* Sticky Action Footer */}
-                <div className="p-6 border-t border-slate-100 bg-white flex flex-col sm:flex-row gap-3 flex-shrink-0">
+                <div className="p-6 border-t border-sage/10 bg-white flex flex-col sm:flex-row gap-3 flex-shrink-0">
                   <a 
                     href={`https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(
                       lang === 'EN' 
@@ -579,7 +579,7 @@ export default function App() {
                   </a>
                   <button 
                     onClick={() => setSelectedProduct(null)}
-                    className="px-6 py-3.5 border border-slate-200 hover:bg-slate-50 text-slate-500 font-semibold text-sm rounded-full transition-colors"
+                    className="px-6 py-3.5 border border-sage/20 hover:bg-sage-light/40 text-slate-500 font-semibold text-sm rounded-full transition-colors"
                   >
                     {lang === 'EN' ? 'Close Specifications' : 'Tutup Spesifikasi'}
                   </button>
