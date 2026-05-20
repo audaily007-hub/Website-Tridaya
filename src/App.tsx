@@ -108,7 +108,7 @@ export default function App() {
     setLang(prev => prev === 'EN' ? 'ID' : 'EN');
   };
 
-  const whatsappNumber = "+6285952726415";
+  const whatsappNumber = "+6285185036882";
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(t.waMessage)}`;
 
   return (
@@ -707,7 +707,7 @@ export default function App() {
               </h4>
               <p className="text-slate-400 text-sm mb-2 flex items-center gap-2">
                 <Phone size={14} className="text-gold" />
-                +62 859 5272 6415
+                +62 851 8503 6882
               </p>
               <p className="text-slate-400 text-sm flex items-center gap-2">
                 <Mail size={14} className="text-gold" />
