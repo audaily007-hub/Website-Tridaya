@@ -86,6 +86,7 @@ export default function App() {
   const [lang, setLang] = useState<Language>('EN');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
 
   const t = translations[lang];
 
@@ -326,27 +327,32 @@ export default function App() {
         </div>
 
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {t.products.items.map((product, idx) => (
               <motion.div 
                 key={idx}
-                className="group relative overflow-hidden rounded-2xl bg-white shadow-md border border-slate-100"
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-md border border-slate-200/60 cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col h-full"
                 whileHover={{ y: -5 }}
+                onClick={() => setSelectedProduct(product)}
               >
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden relative flex-shrink-0 bg-slate-100">
                   <img 
                     src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="bg-navy/90 text-white font-medium text-xs py-2 px-4 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity scale-95 group-hover:scale-100 duration-300">
+                      {lang === 'EN' ? 'View Specifications' : 'Lihat Spesifikasi'}
+                    </span>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-display font-bold text-navy mb-2">{product.name}</h3>
-                  <p className="text-slate-500 text-sm">{product.desc}</p>
-                  <div className="mt-4 flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
-                    Inquire Now <ArrowRight size={14} />
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-lg font-display font-bold text-navy mb-2 group-hover:text-gold transition-colors">{product.name}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">{product.desc}</p>
+                  <div className="mt-auto flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider transition-all">
+                    {lang === 'EN' ? 'Specification Sheet' : 'Lembar Spesifikasi'} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </motion.div>
@@ -458,6 +464,123 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Product Detail Modal */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProduct(null)}
+              className="absolute inset-0 bg-navy/80 backdrop-blur-sm"
+            />
+            {/* Modal Content */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl z-10 max-h-[90vh] md:h-[600px] flex flex-col md:flex-row"
+            >
+              {/* Close button */}
+              <button 
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all shadow-md"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Left Side: Product Image & Spotlight */}
+              <div className="w-full md:w-5/12 relative aspect-[4/3] md:aspect-auto min-h-[250px] md:h-full bg-slate-100 flex-shrink-0 bg-slate-100">
+                <img 
+                  src={selectedProduct.image} 
+                  alt={selectedProduct.name}
+                  className="w-full h-full object-cover md:absolute md:inset-0"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 md:from-transparent via-black/20 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6 md:hidden">
+                  <h3 className="text-2xl font-display font-bold text-white mb-1">{selectedProduct.name}</h3>
+                  <p className="text-gold text-xs font-bold uppercase tracking-wider">{selectedProduct.desc}</p>
+                </div>
+              </div>
+
+              {/* Right Side: Specifications & Bio */}
+              <div className="w-full md:w-7/12 flex flex-col h-[50vh] md:h-full bg-white overflow-hidden">
+                {/* Scrollable specs area */}
+                <div className="overflow-y-auto flex-grow p-6 md:p-10">
+                  <div className="hidden md:block mb-6">
+                    <span className="text-gold text-xs font-bold uppercase tracking-[0.2em] mb-2 block">
+                      Premium Commodity Spec Sheet
+                    </span>
+                    <h3 className="text-3xl font-display font-bold text-navy mb-2">
+                      {selectedProduct.name}
+                    </h3>
+                    <p className="text-slate-500 text-sm italic font-medium">
+                      {selectedProduct.desc}
+                    </p>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-6">
+                    <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
+                      Description
+                    </h4>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-6 font-light">
+                      {selectedProduct.fullDesc || selectedProduct.desc}
+                    </p>
+                  </div>
+
+                  {selectedProduct.specs && (
+                    <div className="border-t border-slate-100 pt-6">
+                      <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-4">
+                        Technical Specifications
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-100 mb-6">
+                        {Object.entries(selectedProduct.specs).map(([key, val]: any) => (
+                          <div key={key} className="flex flex-col border-b border-slate-200/50 pb-2 last:border-0 last:pb-0">
+                            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                              {key}
+                            </span>
+                            <span className="text-xs font-semibold text-navy mt-0.5">
+                              {val}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Sticky Action Footer */}
+                <div className="p-6 border-t border-slate-100 bg-white flex flex-col sm:flex-row gap-3 flex-shrink-0">
+                  <a 
+                    href={`https://wa.me/${whatsappNumber.replace('+', '')}?text=${encodeURIComponent(
+                      lang === 'EN' 
+                        ? `Hello CV Tridaya Nusantara Global, I am interested in inquiring about ${selectedProduct.name}. Could you please provide further details, current FOB pricing, and shipping schedule for this item? Thank you.`
+                        : `Halo CV Tridaya Nusantara Global, saya tertarik untuk menanyakan detail produk ${selectedProduct.name}. Bisakah Anda memberikan penjelasan lebih lanjut, penawaran harga FOB terbaru, serta info jadwal pengapalan? Terima kasih.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 bg-gold hover:bg-gold-light text-navy font-bold px-6 py-3.5 rounded-full shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <MessageCircle size={18} />
+                    {lang === 'EN' ? 'Send WhatsApp Inquiry' : 'Kirim Pertanyaan via WhatsApp'}
+                  </a>
+                  <button 
+                    onClick={() => setSelectedProduct(null)}
+                    className="px-6 py-3.5 border border-slate-200 hover:bg-slate-50 text-slate-500 font-semibold text-sm rounded-full transition-colors"
+                  >
+                    {lang === 'EN' ? 'Close Specifications' : 'Tutup Spesifikasi'}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
