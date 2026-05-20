@@ -331,16 +331,21 @@ export default function App() {
             {t.products.items.map((product, idx) => (
               <motion.div 
                 key={idx}
-                className="group relative overflow-hidden rounded-2xl bg-white shadow-md border border-slate-200/60 cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-md border border-slate-200/60 cursor-pointer hover:shadow-xl transition-[box-shadow,border-color] duration-300 flex flex-col h-full"
+                initial={{ y: 0 }}
                 whileHover={{ y: -5 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
                 onClick={() => setSelectedProduct(product)}
               >
-                <div className="aspect-[4/3] overflow-hidden relative flex-shrink-0 bg-slate-100">
+                <div className="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0 bg-slate-100">
                   <img 
                     src={product.image || `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`} 
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.src = `https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600&sig=${idx}`;
+                    }}
                   />
                   <div className="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span className="bg-navy/90 text-white font-medium text-xs py-2 px-4 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity scale-95 group-hover:scale-100 duration-300">
@@ -494,12 +499,15 @@ export default function App() {
               </button>
 
               {/* Left Side: Product Image & Spotlight */}
-              <div className="w-full md:w-5/12 relative aspect-[4/3] md:aspect-auto min-h-[250px] md:h-full bg-slate-100 flex-shrink-0 bg-slate-100">
+              <div className="w-full md:w-5/12 relative aspect-[4/3] md:aspect-auto min-h-[250px] md:h-full bg-slate-100 flex-shrink-0">
                 <img 
                   src={selectedProduct.image} 
                   alt={selectedProduct.name}
                   className="w-full h-full object-cover md:absolute md:inset-0"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1544662241-ef17101bb0d0?auto=format&fit=crop&q=80&w=600';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 md:from-transparent via-black/20 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6 md:hidden">
