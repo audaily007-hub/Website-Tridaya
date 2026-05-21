@@ -432,7 +432,7 @@ export const translations = {
             'Kondisi Produk': 'Segar, Utuh, Ukuran Jumbo',
             'Kadar Air': 'Maksimal 75–80% (untuk menjaga kesegaran)',
             'Pengemasan': 'Karung goni atau palet, 25kg – 50kg per unit',
-            'MOQ': '25 Ton',
+            'MOQ': '50 Ton',
             'Kapasitas Pasokan': '100 Ton per bulan',
             'Ketersediaan Ekspor': 'Sepanjang tahun'
           }
