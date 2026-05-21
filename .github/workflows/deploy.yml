@@ -1,0 +1,35 @@
+
+name: 🚀 Auto Build Google AI Studio to Rumahweb
+
+on:
+  push:
+    branches:
+      - main # Mengidentifikasi deteksi kiriman otomatis dari AI Studio ke branch main
+
+jobs:
+  build-and-deploy:
+    name: 🏗️ Build & Sync File
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🚚 Ambil kode terbaru dari AI Studio
+      uses: actions/checkout@v4
+
+    - name: 🟢 Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Sesuaikan dengan versi Node yang Anda gunakan
+
+    - name: 📦 Jalankan npm install & npm run build
+      run: |
+        npm install
+        npm run build
+
+    - name: 📂 Unggah Hasil Kompilasi ke cPanel Rumahweb via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./dist/ # Sesuaikan folder hasil compile proyek Anda (biasanya dist atau build)
+        server-dir: /public_html/ # Folder utama cPanel Entry Hosting Anda
