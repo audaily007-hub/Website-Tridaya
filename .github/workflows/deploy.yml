@@ -1,0 +1,37 @@
+name: 🚀 Build Vite and Deploy to Rumahweb
+
+on:
+  push:
+    branches:
+      - main # Jalankan otomatis setiap ada push ke branch main dari AI Studio
+
+jobs:
+  build-and-deploy:
+    name: 🏗️ Vite Build & FTP Sync
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🚚 Ambil kode terbaru dari GitHub
+      uses: actions/checkout@v4
+
+    - name: 🟢 Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Menggunakan Node.js versi 20 yang stabil
+
+    - name: 📦 Install Dependency & Build Vite
+      run: |
+        npm install
+        npm run build # Perintah ini otomatis membuat folder 'dist' di server GitHub
+
+    - name: 📂 Kirim isi folder dist ke cPanel via FTP standar
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 21 # Memaksa koneksi menggunakan port FTP standar paket Entry Rumahweb
+        protocol: ftp # Memastikan menggunakan FTP biasa, bukan SFTP yang terkunci
+        dangerous-clean-slate: false # Mencegah robot menghapus file penting lain di cPanel Anda
+        local-dir: ./dist/ # Folder output bawaan dari Vite
+        server-dir: /public_html/ # Target folder utama di cPanel Rumahweb
