@@ -144,7 +144,7 @@ export const translations = {
             'Product Condition': 'Fresh, Whole, Jumbo Size',
             'Moisture Content': 'Maximum 75–80% (to preserve freshness)',
             'Packaging': 'Gunny bags or pallets, 25kg – 50kg per unit',
-            'MOQ': '100 Tons',
+            'MOQ': '25 Tons',
             'Supply Capacity': '500 Tons per month',
             'Export Availability': 'Year‑round'
           }
@@ -432,7 +432,7 @@ export const translations = {
             'Kondisi Produk': 'Segar, Utuh, Ukuran Jumbo',
             'Kadar Air': 'Maksimal 75–80% (untuk menjaga kesegaran)',
             'Pengemasan': 'Karung goni atau palet, 25kg – 50kg per unit',
-            'MOQ': '100 Ton',
+            'MOQ': '25 Ton',
             'Kapasitas Pasokan': '500 Ton per bulan',
             'Ketersediaan Ekspor': 'Sepanjang tahun'
           }
