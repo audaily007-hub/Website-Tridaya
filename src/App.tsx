@@ -560,7 +560,6 @@ export default function App() {
             {[
               { id: 'bento', label: lang === 'EN' ? 'Detail (Bento)' : 'Detail (Bento)', icon: LayoutList },
               { id: 'grid', label: lang === 'EN' ? 'Grid' : 'Kotak', icon: Grid },
-              { id: 'compare', label: lang === 'EN' ? 'Compare' : 'Bandingkan', icon: FileSpreadsheet },
             ].map((layout) => {
               const Icon = layout.icon;
               const isActive = productLayout === layout.id;
