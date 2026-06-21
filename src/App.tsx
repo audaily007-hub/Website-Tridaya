@@ -28,7 +28,8 @@ import {
   Target,
   Eye,
   Star,
-  Quote
+  Quote,
+  Search
 } from 'lucide-react';
 import { translations, Language } from './translations';
 
@@ -89,15 +90,129 @@ function LogoComponent({ scrolled, lightMode, showSlogan }: { scrolled?: boolean
   );
 }
 
+const classifySpecKey = (key: string): 'tech' | 'quality' | 'logistics' => {
+  const normalized = key.toLowerCase().trim();
+
+  const logisticsKeys = [
+    'moq',
+    'pesanan minimum',
+    'minimum order',
+    'packaging',
+    'pengemasan',
+    'standard packaging',
+    'standar pengemasan',
+    'supply capacity',
+    'kapasitas pasokan',
+    'monthly supply capacity',
+    'shipping method',
+    'metode pengiriman',
+    'export availability',
+    'ketersediaan ekspor'
+  ];
+
+  const qualityKeys = [
+    'condition',
+    'kondisi',
+    'product condition',
+    'kondisi produk',
+    'appearance',
+    'tampilan',
+    'characteristics',
+    'karakteristik',
+    'aroma',
+    'moisture content',
+    'kadar air',
+    'moisture',
+    'size distribution',
+    'distribusi ukuran',
+    'size',
+    'ukuran',
+    'color',
+    'warna',
+    'grade',
+    'kelas',
+    'ash',
+    'abu',
+    'quality',
+    'mutu',
+    'form',
+    'proses',
+    'process',
+    'texture',
+    'tekstur',
+    'curcumin',
+    'kurkumin',
+    'volatile oil',
+    'minyak atsiri',
+    'foreign matter',
+    'bahan asing',
+    'defective',
+    'cacat',
+    'rusak',
+    'broken',
+    'bean count',
+    'jumlah biji',
+    'drying style',
+    'metode pengeringan',
+    'broken beans',
+    'biji pecah',
+    'essential oil',
+    'mold & insect damage',
+    'safety profile',
+    'hama & kerusakan',
+    'profil keamanan',
+    'jamur',
+    'oil content',
+    'kandungan minyak',
+    'purity level',
+    'tingkat kemurnian',
+    'processing',
+    'pemrosesan',
+    'color profile',
+    'profil warna',
+    'damaged / molded nuts',
+    'kerusakan hama & jamur',
+    'kernel characteristic',
+    'karakteristik kernel',
+    'drying process'
+  ];
+
+  if (logisticsKeys.some(lk => normalized.includes(lk))) {
+    return 'logistics';
+  }
+  if (qualityKeys.some(qk => normalized.includes(qk))) {
+    return 'quality';
+  }
+  return 'tech';
+};
+
 export default function App() {
   const [lang, setLang] = useState<Language>('EN');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
   const [productLayout, setProductLayout] = useState<'grid' | 'bento' | 'compare'>('bento');
+  const [searchQuery, setSearchQuery] = useState('');
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
+  const [modalTab, setModalTab] = useState<'tech' | 'quality' | 'logistics' | 'certificate'>('tech');
 
-  const t = translations[lang];
+  useEffect(() => {
+    if (selectedProduct) {
+      setModalTab('tech');
+    }
+  }, [selectedProduct]);
+
+  const rawT = translations[lang];
+  const t = {
+    ...rawT,
+    products: {
+      ...rawT.products,
+      items: rawT.products.items.map(item => ({
+        ...item,
+        name: item.name.toUpperCase()
+      }))
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -416,19 +531,103 @@ export default function App() {
           <h2 className="text-4xl font-display font-bold text-navy">{t.products.title}</h2>
         </div>
 
-        <div className="container mx-auto px-6">
-          <AnimatePresence mode="wait">
-            {productLayout === 'grid' && (
-              <motion.div 
-                key="grid-layout"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+        {/* Search & Layout Toggles Toolbar */}
+        <div className="container mx-auto px-6 mb-12 flex flex-col md:flex-row gap-6 justify-between items-center">
+          {/* Search Bar */}
+          <div className="relative w-full md:max-w-md">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+              <Search size={18} />
+            </span>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={lang === 'EN' ? "Search commodities (e.g. candlenut, nutmeg)..." : "Cari komoditas (misal: kemiri, pala)..."}
+              className="w-full bg-white hover:bg-slate-50 focus:bg-white text-navy placeholder:text-slate-400 text-sm pl-11 pr-10 py-3.5 rounded-full border border-sage/20 focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold transition-all duration-300 shadow-sm"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-navy transition-colors"
               >
-                {t.products.items.map((product, idx) => {
-                  const tag = lang === 'EN' ? 'Premium Export' : 'Kualitas Ekspor';
+                <X size={16} />
+              </button>
+            )}
+          </div>
+
+          {/* Layout Switcher */}
+          <div className="flex bg-white/80 p-1.5 rounded-full border border-sage/15 shadow-sm">
+            {[
+              { id: 'bento', label: lang === 'EN' ? 'Detail (Bento)' : 'Detail (Bento)', icon: LayoutList },
+              { id: 'grid', label: lang === 'EN' ? 'Grid' : 'Kotak', icon: Grid },
+              { id: 'compare', label: lang === 'EN' ? 'Compare' : 'Bandingkan', icon: FileSpreadsheet },
+            ].map((layout) => {
+              const Icon = layout.icon;
+              const isActive = productLayout === layout.id;
+              return (
+                <button
+                  key={layout.id}
+                  onClick={() => setProductLayout(layout.id as any)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
+                    isActive 
+                      ? 'bg-navy text-white shadow-md' 
+                      : 'text-slate-500 hover:text-navy hover:bg-slate-50'
+                  }`}
+                >
+                  <Icon size={14} />
+                  <span>{layout.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="container mx-auto px-6">
+          {/* Empty search state */}
+          {(() => {
+            const query = searchQuery.toLowerCase().trim();
+            const filteredProducts = t.products.items.filter(product => {
+              if (!query) return true;
+              return (
+                product.name.toLowerCase().includes(query) ||
+                product.desc.toLowerCase().includes(query) ||
+                (product.fullDesc && product.fullDesc.toLowerCase().includes(query)) ||
+                (product.specs && Object.entries(product.specs).some(([k, v]: any) => 
+                  k.toLowerCase().includes(query) || String(v).toLowerCase().includes(query)
+                ))
+              );
+            });
+
+            return (
+              <>
+                {filteredProducts.length === 0 && (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center py-16 bg-white max-w-lg mx-auto rounded-3xl border border-sage/12 shadow-[0_8px_30px_rgb(92,110,97,0.02)]"
+                  >
+                    <p className="text-slate-400 mb-4">{lang === 'EN' ? 'No commodities match your search.' : 'Tidak ada komoditas yang cocok dengan pencarian Anda.'}</p>
+                    <button 
+                      onClick={() => setSearchQuery('')}
+                      className="px-6 py-2 bg-navy text-white text-xs font-bold rounded-full hover:bg-gold transition-colors shadow-sm"
+                    >
+                      {lang === 'EN' ? 'Clear Search' : 'Bersihkan Pencarian'}
+                    </button>
+                  </motion.div>
+                )}
+
+                <AnimatePresence mode="wait">
+                  {productLayout === 'grid' && filteredProducts.length > 0 && (
+                    <motion.div 
+                      key="grid-layout"
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.4 }}
+                      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+                    >
+                      {filteredProducts.map((product, idx) => {
+                        const tag = lang === 'EN' ? 'Premium Export' : 'Kualitas Ekspor';
                   return (
                     <motion.div 
                       key={idx}
@@ -474,7 +673,7 @@ export default function App() {
               </motion.div>
             )}
 
-            {productLayout === 'bento' && (
+            {productLayout === 'bento' && filteredProducts.length > 0 && (
               <motion.div 
                 key="bento-layout"
                 initial={{ opacity: 0, y: 15 }}
@@ -483,7 +682,7 @@ export default function App() {
                 transition={{ duration: 0.4 }}
                 className="space-y-12 max-w-6xl mx-auto"
               >
-                {t.products.items.map((product, idx) => {
+                {filteredProducts.map((product, idx) => {
                   const isEven = idx % 2 === 0;
                   const itemTag = idx === 0 || idx === 3 ? (lang === 'EN' ? 'Top Exporter Choice' : 'Pilihan Eksportir Teratas') : (lang === 'EN' ? '100% Direct Source' : 'Sumber Langsung 100%');
                   return (
@@ -534,17 +733,6 @@ export default function App() {
                           {product.fullDesc ? (product.fullDesc.length > 180 ? `${product.fullDesc.substring(0, 180)}...` : product.fullDesc) : product.desc}
                         </p>
 
-                        <div className="grid grid-cols-2 gap-4 border-t border-sage/10 pt-5 mb-6">
-                          <div>
-                            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">MOQ</p>
-                            <p className="text-sm font-semibold text-navy mt-0.5">{product.specs?.['MOQ'] || 'Negotiable'}</p>
-                          </div>
-                          <div>
-                            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{lang === 'EN' ? 'Supply Capacity' : 'Kapasitas Pasok'}</p>
-                            <p className="text-sm font-semibold text-navy mt-0.5">{product.specs?.['Supply Capacity'] || product.specs?.['Monthly Supply Capacity'] || '100+ Tons / Month'}</p>
-                          </div>
-                        </div>
-
                         <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider">
                           {lang === 'EN' ? 'Explore Technical Specifications' : 'Eksplorasi Spesifikasi Teknis'} <ArrowRight size={14} className="hover:translate-x-1 transition-transform" />
                         </div>
@@ -555,7 +743,7 @@ export default function App() {
               </motion.div>
             )}
 
-            {productLayout === 'compare' && (
+            {productLayout === 'compare' && filteredProducts.length > 0 && (
               <motion.div 
                 key="compare-layout"
                 initial={{ opacity: 0, y: 15 }}
@@ -577,7 +765,7 @@ export default function App() {
                       </tr>
                     </thead>
                     <tbody>
-                      {t.products.items.map((product, idx) => {
+                      {filteredProducts.map((product, idx) => {
                         const origin = product.specs?.['Origin'] || product.specs?.['Asal'] || 'East Java, Indonesia';
                         const moq = product.specs?.['MOQ'] || 'Negotiable';
                         const capacity = product.specs?.['Supply Capacity'] || product.specs?.['Monthly Supply Capacity'] || '100 Tons / month';
@@ -624,6 +812,9 @@ export default function App() {
               </motion.div>
             )}
           </AnimatePresence>
+          </>
+          );
+          })()}
         </div>
       </section>
 
@@ -913,34 +1104,242 @@ export default function App() {
                     </p>
                   </div>
 
-                  <div className="border-t border-sage/10 pt-6">
-                    <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
-                      Description
-                    </h4>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-6 font-light">
-                      {selectedProduct.fullDesc || selectedProduct.desc}
-                    </p>
+                  {/* Tab Navigation Row */}
+                  <div className="flex border-b border-sage/20 mb-6 overflow-x-auto scrollbar-none whitespace-nowrap -mx-6 md:-mx-10 px-6 md:px-10 sticky top-0 bg-white z-10 pb-0.5">
+                    {[
+                      { id: 'tech', label_en: 'Technical Specs', label_id: 'Spek Teknis' },
+                      { id: 'quality', label_en: 'Quality Specs', label_id: 'Kualitas' },
+                      { id: 'logistics', label_en: 'Logistics & Supply', label_id: 'Logistik' },
+                      { id: 'certificate', label_en: 'Certificates', label_id: 'Sertifikasi' }
+                    ].map((tab) => {
+                      const isActive = modalTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => setModalTab(tab.id as any)}
+                          className={`pb-3 text-xs md:text-sm font-semibold tracking-wide border-b-2 mr-6 md:mr-8 transition-all relative outline-none cursor-pointer ${
+                            isActive 
+                              ? 'border-gold text-navy font-bold' 
+                              : 'border-transparent text-slate-400 hover:text-navy'
+                          }`}
+                        >
+                          {lang === 'EN' ? tab.label_en : tab.label_id}
+                        </button>
+                      );
+                    })}
                   </div>
 
-                  {selectedProduct.specs && (
-                    <div className="border-t border-sage/10 pt-6">
-                      <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-4">
-                        Technical Specifications
-                      </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-sage-light/20 p-5 rounded-2xl border border-sage/10 mb-6">
-                        {Object.entries(selectedProduct.specs).map(([key, val]: any) => (
-                          <div key={key} className="flex flex-col border-b border-sage/10 pb-2 last:border-0 last:pb-0">
-                            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-                              {key}
-                            </span>
-                            <span className="text-xs font-semibold text-navy mt-0.5">
-                              {val}
-                            </span>
+                  {/* Tab Content Panels */}
+                  <div className="pt-2">
+                    {modalTab === 'tech' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {/* Product Description */}
+                        <div className="mb-6">
+                          <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
+                            {lang === 'EN' ? 'Description' : 'Deskripsi'}
+                          </h4>
+                          <p className="text-slate-600 text-sm leading-relaxed font-light whitespace-pre-line">
+                            {selectedProduct.fullDesc || selectedProduct.desc}
+                          </p>
+                        </div>
+
+                        {/* Tech Specs Grid */}
+                        {selectedProduct.specs && (
+                          <div>
+                            <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
+                              {lang === 'EN' ? 'Technical Specifications' : 'Spesifikasi Teknis'}
+                            </h4>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-sage-light/20 p-5 rounded-2xl border border-sage/10 mb-2">
+                              {Object.entries(selectedProduct.specs)
+                                .filter(([key]) => classifySpecKey(key) === 'tech')
+                                .map(([key, val]: any) => (
+                                  <div key={key} className="flex flex-col border-b border-sage/10 pb-2 last:border-0 last:pb-0">
+                                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                                      {key}
+                                    </span>
+                                    <span className="text-xs font-semibold text-navy mt-0.5">
+                                      {val}
+                                    </span>
+                                  </div>
+                                ))}
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                        )}
+                      </motion.div>
+                    )}
+
+                    {modalTab === 'quality' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
+                          {lang === 'EN' ? 'Quality Specifications' : 'Spesifikasi Kualitas'}
+                        </h4>
+
+                        {selectedProduct.specs && Object.entries(selectedProduct.specs).filter(([key]) => classifySpecKey(key) === 'quality').length > 0 ? (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-sage-light/20 p-5 rounded-2xl border border-sage/10 mb-6">
+                            {Object.entries(selectedProduct.specs)
+                              .filter(([key]) => classifySpecKey(key) === 'quality')
+                              .map(([key, val]: any) => (
+                                <div key={key} className="flex flex-col border-b border-sage/10 pb-2 last:border-0 last:pb-0">
+                                  <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                                    {key}
+                                  </span>
+                                  <span className="text-xs font-semibold text-navy mt-0.5">
+                                    {val}
+                                  </span>
+                                </div>
+                              ))}
+                          </div>
+                        ) : (
+                          <div className="bg-sage-light/10 p-5 rounded-2xl border border-sage/10 text-center mb-6">
+                            <p className="text-sm text-slate-500 font-light">
+                              {lang === 'EN' 
+                                ? "Premium export grade. Meets general agricultural export standards with rigorous post-harvest sorting to eliminate defects."
+                                : "Kualitas ekspor premium. Memenuhi kelayakan standar ekspor komoditas nasional dengan pemilahan pasca-panen mandiri."}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Quality Assurance Card */}
+                        <div className="p-5 bg-gold/5 border border-gold/10 rounded-2xl flex gap-4 items-start">
+                          <div className="p-2.5 bg-gold/10 text-gold rounded-xl shrink-0">
+                            <ShieldCheck size={20} />
+                          </div>
+                          <div>
+                            <h5 className="text-sm font-semibold text-navy mb-1">
+                              {lang === 'EN' ? '100% Quality Inspected' : 'Jaminan Kualitas 100%'}
+                            </h5>
+                            <p className="text-xs text-slate-600 leading-relaxed font-light">
+                              {lang === 'EN' 
+                                ? 'Each shipment passes thorough manual and physical inspections to strictly verify dryness levels, impurities, and structural firmness before loading.' 
+                                : 'Setiap pengapalan melalui inspeksi manual dan fisik secara menyeluruh untuk memverifikasi tingkat kadar air, kemurnian bahan baku, serta integritas kemasan.'}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {modalTab === 'logistics' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
+                          {lang === 'EN' ? 'Supply & Logistics Capability' : 'Kapasitas Pasokan & Logistik'}
+                        </h4>
+
+                        {selectedProduct.specs && Object.entries(selectedProduct.specs).filter(([key]) => classifySpecKey(key) === 'logistics').length > 0 ? (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-sage-light/20 p-5 rounded-2xl border border-sage/10 mb-6">
+                            {Object.entries(selectedProduct.specs)
+                              .filter(([key]) => classifySpecKey(key) === 'logistics')
+                              .map(([key, val]: any) => (
+                                <div key={key} className="flex flex-col border-b border-sage/10 pb-2 last:border-0 last:pb-0">
+                                  <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                                    {key}
+                                  </span>
+                                  <span className="text-xs font-semibold text-navy mt-0.5">
+                                    {val}
+                                  </span>
+                                </div>
+                              ))}
+                          </div>
+                        ) : (
+                          <div className="bg-sage-light/10 p-5 rounded-2xl border border-sage/10 text-center mb-6">
+                            <p className="text-sm text-slate-500 font-light">
+                              {lang === 'EN' 
+                                ? "Secure packaging and shipment via sea freight. Custom volume and packaging variants available upon request."
+                                : "Pengemasan aman dan pengiriman melalui kontainer laut. Melayani kustomisasi volume dan jenis kemasan sesuai permintaan."}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Port/Global reach info */}
+                        <div className="p-5 bg-navy/5 border border-navy/10 rounded-2xl flex gap-4 items-start">
+                          <div className="p-2.5 bg-navy/15 text-navy rounded-xl shrink-0">
+                            <Truck size={20} />
+                          </div>
+                          <div>
+                            <h5 className="text-sm font-semibold text-navy mb-1">
+                              {lang === 'EN' ? 'Global Export Handling' : 'Dukungan Ekspor Global'}
+                            </h5>
+                            <p className="text-xs text-slate-600 leading-relaxed font-light">
+                              {lang === 'EN'
+                                ? 'We offer reliable global freight handling with temperature-controlled reefer options, secure stuffing, and flexible port-of-loading routes in Indonesia.'
+                                : 'Kami menyediakan penanganan logistik laut andal dengan opsi peti kemas berpendingin (reefer), pengawasan pemuatan, dan fleksibilitas pelabuhan muatan di Indonesia.'}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {modalTab === 'certificate' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-bold mb-3">
+                          {lang === 'EN' ? 'Certifications & Legal Compliance' : 'Sertifikasi & Legalitas Ekspor'}
+                        </h4>
+                        <p className="text-slate-500 text-xs leading-relaxed mb-6 font-light">
+                          {lang === 'EN' 
+                            ? "We are fully certified for global operations, providing complete legal documentation, international custom clearance paperwork, and quality standard guarantees."
+                            : "Kami sepenuhnya tersertifikasi untuk kegiatan ekspor internasional, siap menerbitkan berkas legalitas hukum lengkap, persetujuan bea cukai, serta jaminan mutu."}
+                        </p>
+
+                        <div className="space-y-3">
+                          {[
+                            {
+                              titleEN: 'Phytosanitary Certificate',
+                              titleID: 'Sertifikat Fitosanitasi',
+                              descEN: 'Issued by Agricultural Quarantine Agency to guarantee materials are free from pests or diseases.',
+                              descID: 'Diterbitkan Badan Karantina Pertanian guna menjamin komoditas bebas dari hama dan patogen berbahaya.'
+                            },
+                            {
+                              titleEN: 'Certificate of Origin (Form COO / SKA)',
+                              titleID: 'Surat Keterangan Asal (SKA / COO)',
+                              descEN: 'Ensures verification of Indonesian origin for preferential tariff treatment at container destination.',
+                              descID: 'Memverifikasi asal-usul tanah air Indonesia untuk mendapatkan kesepakatan bea masuk yang menguntungkan.'
+                            },
+                            {
+                              titleEN: 'Independent Inspection Reports (SGS / Sucofindo)',
+                              titleID: 'Laporan Sucofindo / SGS Independent',
+                              descEN: 'We provide certified third-party testing for chemical composition, pesticide residue, moisture, and weights.',
+                              descID: 'Kami mendukung pengetesan pihak ketiga terakreditasi terkait laporan kadar kelayakan spesifik sebelum ekspor.'
+                            },
+                            {
+                              titleEN: 'Legal Export Licensing & Customs Permits',
+                              titleID: 'Izin Ekspor Legal & Dokumen Bea Cukai',
+                              descEN: 'Comprehensive export credentials for worry-free customs clearance in Europe, America, Asia, and Middle East.',
+                              descID: 'Kualifikasi hukum resmi lengkap untuk mempermudah pembebasan kepabeanan di Eropa, Amerika, Asia, dan Timur Tengah.'
+                            }
+                          ].map((cert, index) => (
+                            <div key={index} className="flex gap-4 p-4 border border-sage/10 rounded-2xl bg-sage-light/10">
+                              <div className="p-2 bg-white text-gold rounded-lg shadow-sm font-bold text-xs shrink-0 w-8 h-8 flex items-center justify-center border border-sage/10">
+                                0{index + 1}
+                              </div>
+                              <div>
+                                <h5 className="text-sm font-semibold text-navy">
+                                  {lang === 'EN' ? cert.titleEN : cert.titleID}
+                                </h5>
+                                <p className="text-xs text-slate-500 mt-1 font-light leading-relaxed">
+                                  {lang === 'EN' ? cert.descEN : cert.descID}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Sticky Action Footer */}
