@@ -15,7 +15,7 @@ export const translations = {
     about: {
       title: 'Our Journey',
       content1: 'With over 20 years of experience, CV Tridaya Nusantara Global has grown from a local spice supplier to a global exporter of this premium commodity.',
-      content2: 'Based in Purbalingga, Central Java, our dedicated warehouse serves as a center for meticulous sorting, processing, and packaging, ensuring each product meets international standards.',
+      content2: 'Our strategically located warehouse serves as a center for meticulous sorting, processing, and packaging, ensuring each product meets international standards.',
       experience: '20+ Years Excellence',
     },
     visionMission: {
@@ -173,7 +173,7 @@ export const translations = {
         {
           name: 'Rayung Grass / Gelagah Grass',
           desc: 'Naturally sun‑dried Rayung and Gelagah grass raw material',
-          image: '/images/rayung-glagah-custom.jpg',
+          image: '/images/gelagah_grass_logo.png',
           fullDesc: "Rayung Grass / Gelagah Grass is a hardy type of grass featuring long, strong fibres. It is naturally sun‑dried until it reaches the ideal dryness and durability, making it a superior primary raw material for crafting traditional brooms. Its flexible yet dense fibres deliver excellent cleaning performance.",
           specs: {
             'Product Name': 'Dried Rayung Grass / Gelagah Grass',
@@ -465,7 +465,7 @@ export const translations = {
       ]
     },
     footer: {
-      address: 'Purbalingga, Central Java, Indonesia',
+      address: 'Bedahan Hamlet, RT 03 RW 03, Jingkang Village, Karangjambu District, Purbalingga Regency, Central Java, Indonesia',
       rights: '© 2026 CV Tridaya Nusantara Global. All rights reserved.',
     },
     waMessage: "Hello CV Tridaya Nusantara Global, I visited your website and I am interested in your products (please specify: Coffee/Charcoal/Spices/Brooms). Could you please provide more information regarding the specifications and minimum order quantity (MOQ)? Thank you.",
@@ -484,7 +484,7 @@ export const translations = {
     about: {
       title: 'Perjalanan Kami',
       content1: 'Dengan pengalaman lebih dari 20 tahun, CV Tridaya Nusantara Global telah berkembang dari pemasok rempah-rempah lokal menjadi eksportir global komoditas premium ini.',
-      content2: 'Berbasis di Purbalingga, Jawa Tengah, gudang khusus kami berfungsi sebagai pusat penyortiran, pemrosesan, dan pengemasan yang teliti, memastikan setiap produk memenuhi standar internasional.',
+      content2: 'Gudang kami yang terletak strategis berfungsi sebagai pusat penyortiran, pemrosesan, dan pengemasan yang teliti, memastikan setiap produk memenuhi standar internasional.',
       experience: '20+ Tahun Keunggulan',
     },
     visionMission: {
@@ -642,7 +642,7 @@ export const translations = {
         {
           name: 'Rumput Rayung / Rumput Glagah',
           desc: 'Bahan baku rumput Rayung dan Glagah kering matahari alami',
-          image: '/images/rayung-glagah-custom.jpg',
+          image: '/images/gelagah_grass_logo.png',
           fullDesc: "Rumput Rayung / Rumput Glagah adalah jenis rumput tangguh yang memiliki serat panjang dan kuat. Dikeringkan secara alami di bawah sinar matahari hingga mencapai tingkat kering dan daya tahan yang ideal, menjadikannya bahan baku utama yang unggul untuk membuat sapu tradisional. Seratnya yang fleksibel namun padat memberikan kinerja pembersihan yang luar biasa.",
           specs: {
             'Nama Produk': 'Rumput Rayung / Rumput Glagah Kering',
@@ -934,7 +934,7 @@ export const translations = {
       ]
     },
     footer: {
-      address: 'Purbalingga, Jawa Tengah, Indonesia',
+      address: 'Dusun Bedahan, RT 03 RW 03, Desa Jingkang, Kecamatan Karangjambu, Kabupaten Purbalingga, Jawa Tengah, Indonesia',
       rights: '© 2026 CV Tridaya Nusantara Global. Hak cipta dilindungi.',
     },
     waMessage: "Halo CV Tridaya Nusantara Global, saya melihat website Anda dan tertarik dengan produk (mohon sebutkan: Kopi/Arang/Rempah/Sapu). Bisa berikan informasi lebih lanjut mengenai spesifikasi dan minimal order? Terima kasih.",
